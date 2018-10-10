@@ -17,10 +17,18 @@ if (/^https:\/\/iu.instructure.com\/courses\/\d+\/grades$/.test(window.location.
                 var possible = +$possible.text();
 
                 if ($score.find('.icon-check').length)
-                    score = possible
+                    score = possible;
                 else {
                     var $grade = $score.find('.grade').get(0);
-                    score = +$grade.childNodes[$grade.childNodes.length - 1].nodeValue;
+                    var grade = $grade.childNodes[$grade.childNodes.length - 1].nodeValue.trim();
+                    
+                    if (grade === '') {
+                        $grade = $score.find('.score_value').get(0);
+                        grade = $grade.childNodes[0].nodeValue.trim().split(' ')[0];
+                        console.log(grade);
+                    }
+                    
+                    score = +grade;
                 }
 
                 totalScore += score;
