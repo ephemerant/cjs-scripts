@@ -1,5 +1,5 @@
 // Are we on the main page?
-if (/^https:\/\/iu.instructure.com\/#?$/.test(window.location.href)) {
+if (/^https:\/\/iu.instructure.com\/(#?|\?.*)$/.test(window.location.href)) {
     var blackList = ['GPSG', 'Graduate and Professional Student Government'];
 
     (function () {
