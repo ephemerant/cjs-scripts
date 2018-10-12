@@ -1,5 +1,5 @@
 // Are we on the main page?
-if (window.location.href === 'https://iu.instructure.com/' || window.location.href === 'https://iu.instructure.com/#') {
+if (/^https:\/\/iu.instructure.com\/#?$/.test(window.location.href)) {
     var blackList = ['GPSG', 'Graduate and Professional Student Government'];
 
     (function () {
