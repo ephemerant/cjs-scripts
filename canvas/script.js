@@ -1,28 +1,43 @@
 // Are we on the main page?
 if (window.location.href === 'https://iu.instructure.com/') {
     var blackList = ['GPSG', 'Graduate and Professional Student Government'];
-    var ticks = 0;
 
-    var interval = setInterval(function () {
-        if ($('#planner-todosidebar-item-list').length) {
-            clearInterval(interval);
-            removeTodo();
-            console.log('To Do loaded after', ticks * 10, 'ms');
-        }
+    (function () {
+        var ticks = 0;
+        var interval = setInterval(function () {
+            if ($('#planner-todosidebar-item-list').length) {
+                clearInterval(interval);
+                removeTodo();
+                console.log('To Do loaded after', ticks * 10, 'ms');
+            }
 
-        // Stop after 30s if it still hasn't loaded
-        if (ticks++ > 3000)
-            clearInterval(interval);
-    }, 10);
+            // Stop after 30s if it still hasn't loaded
+            if (ticks++ > 3000)
+                clearInterval(interval);
+        }, 10);
+    })();
 
-    removeUpcoming();
+    (function () {
+        var ticks = 0;
+        var interval = setInterval(function () {
+            if ($('.events_list.coming_up').length) {
+                clearInterval(interval);
+                removeUpcoming();
+                console.log('Coming Up loaded after', ticks * 10, 'ms');
+            }
+
+            // Stop after 30s if it still hasn't loaded
+            if (ticks++ > 3000)
+                clearInterval(interval);
+        }, 10);
+    })();
 
     function removeTodo() {
         // Remove certain "To Do" items
         $('.ToDoSidebarItem__Title + span').filter(function (i, span) {
             return blackList.indexOf($(span).text()) !== -1;
-        }).each(function (i, span) {
-            $(span).closest('li').remove();
+        }).each(function (i, span) { 
+            $(span).closest('li').find('button').click();
         });
     }
 
